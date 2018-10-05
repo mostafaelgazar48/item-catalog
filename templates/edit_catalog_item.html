@@ -1,0 +1,50 @@
+{% extends "main.html"%}
+{% block content%}
+<div class="login">
+    <div class="row">
+        <div class="col-md-12">
+            <h2> edit  {{item.name}} Item</h2>
+            <hr>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12"> 
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">new Name::</label>
+                    <input type="text" placeholder="Enter the new name of {{item.name}}" class="form-control" name="name" value="{{item.name}}">
+                    <label for="desc">new Description</label>
+                    <input type="text" placeholder="new description of {{item.name}}" class="form-control" maxlength="200" row="2" name="desc"  value="{{item.description}}">
+                    <label for="price"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" name="price" placeholder="{{item.price}}"  value="{{item.price}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="Category">new Category::</label>
+                        <select class="form-control" name="category">
+                            {% for c in categories %}
+                                {% if item and item.category_id == c.id %} 
+                                <option id="{{c.id}}" value="{{c.id}}" selected>{{c.name}}</option>
+                                {% else %}
+                                <option id="{{c.id}}" value="{{c.id}}">{{c.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn-success" type="submit">
+                        <span class="glyphicon glyphicon-glass"> </span>done!
+                    </button>
+                    <button class="btn btn-default delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <a href="{{ url_for('show_Catalog') }}"> Cancel</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}

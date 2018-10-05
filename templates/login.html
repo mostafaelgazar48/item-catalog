@@ -1,0 +1,54 @@
+{% extends "main.html"%}
+{% block content %}
+
+<!-- GOOGLE PLUS SIGN IN-->
+<div class="jumbotron text-center login card-connatiner">
+
+    <div id="signinButton">
+    <span class="g-signin"
+      data-scope="openid"
+      data-clientid="252137480618-9bn4doiip341e9el8i6fadgt7o32vrr1.apps.googleusercontent.com"
+      data-redirecturi="postmessage"
+      data-accesstype="offline"
+      data-cookiepolicy="single_host_origin"
+      data-callback="signInCallback"
+      data-approvalprompt="force">
+    </span>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+  function signInCallback(authResult) {
+    if (authResult['code']) {
+      // Hide the sign-in button now that the user is authorized
+      $('#signinButton').attr('style', 'display: none');
+      // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+      $.ajax({
+        type: 'POST',
+        url: '/gconnect?state={{STATE}}',
+        processData: false,
+        data: authResult['code'],
+        contentType: 'application/octet-stream; charset=utf-8',
+        success: function(result) {
+          // Handle or verify the server response if necessary.
+          if (result) {
+            $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+          setTimeout(function() {
+            window.location.href ='/categories/';
+          }, 4000);
+
+        } else if (authResult['error']) {
+      console.log('There was an error: ' + authResult['error']);
+    } else {
+          $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+          }
+        }
+
+    }); } }
+  </script>
+</div>
+{% endblock%}
+
+<!--END GOOGLE PLUS SIGN IN -->
+

@@ -1,0 +1,30 @@
+body{
+    background-color: #8dcecb;
+}
+
+nav{
+    margin: 0;
+    width: 100%;
+}
+a{
+    color: black;
+
+}
+
+a:hover{
+    text-decoration: none;
+}
+ul,li{
+    list-style-type: none;
+}
+
+.login{
+    background: white;
+    border-radius: 3px;
+
+}
+.pro_img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

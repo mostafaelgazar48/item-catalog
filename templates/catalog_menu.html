@@ -1,0 +1,117 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="col-md-12 flash">
+{% with messages =get_flashed_messages()%}
+{% if messages %}
+
+<ul class="alert alert-dismissable">
+    {% for message in messages %}
+    <li>
+        <strong> {{ message}}</strong>
+    </li>       
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+</div>
+
+<div class="row">
+    <div class="col-md-4" style="height:100%">
+        <div class="col-md-12">
+         <h3>
+             <a> Category</a>
+            <div class="pull-right">
+                <a href="{{url_for('new_categories')}}">
+                <button class="btn btn-success primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </a>
+            </div>
+         </h3>
+        </div>
+
+        <ul class="list-group">
+            <li><a href=""> catalogs</a></li>
+            {% for c in categories %}
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{{url_for('categoryItems',category_id=c.id)}}">{{ c.name }}</a>
+                        {% if c.user_id == session.user_id %}
+                        <div class="pull-right">
+                            <a href="{{url_for('edit_Category',category_id = c.id)}}">
+                                <button class="btn btn-default edit">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </a>
+                            <a href="{{url_for('delete_Category',category_id = c.id)}}">
+                                <button class="btn btn-danger delete">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="col-md-8" style="height:100%">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{category.name}} items ({{count}})</h2>
+                {% if session.user_id %}
+                <div class="pull-right">
+                    <a href="{{url_for('newCatalogItem')}}">
+                        <button class="btn btn-success primary">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Add Item
+                        </button>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        
+
+            <ul class="list-group-item">
+                {% if items and count >0 %}
+                {% for i  in items %}
+                <li>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{url_for('showCatalogItem',category_id=i.category_id,item_id=i.id)}}">
+                                <h3>
+                                    {{ i.name }}</a><br> <small>{{ i.category.name}}</small>
+                                    {% if i.user_id == session.user_id %}
+
+                                    <div class="editdeletepane pull-right">
+                                        <a href="{{url_for('ediCatalogItem',category_id=i.category_id,item_id=i.id)}}">
+                                            <button class="btn btn-default edit">
+                                               <span class="glyphicon glyphicon-edit"></span>Edit
+                                            </button>
+                                        </a>
+                                        <a href="{{url_for('deleteCatalogItem',category_id=i.category_id,item_id=i.id)}}">
+                                                <button class="btn btn-danger delete">
+                                                   <span class="glyphicon glyphicon-edit"></span>Delete
+                                                </button>
+                                            </a>
+                                            
+                                    </div>
+                                    {% endif%}
+                                </h3>
+                            </a>
+                        </div>
+
+                    </div>
+                {% endfor %}
+                </li>
+
+            </ul>
+            {% endif %}
+        </div>
+
+</div>
+{% endblock %}

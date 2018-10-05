@@ -1,0 +1,22 @@
+PROJECT NAME:
+item catalog web app with udacity 
+
+
+prerequests:
+
+1- vagrant 
+2-virtualbox
+
+
+how to install :
+1-put it in the vagrant folder 
+2-run vagrant up and then vagrant shh
+3-you can run the project via  "python project.py"
+
+JSON Endpoints
+
+Categories JSON: /api/categories/json- Displays all categories
+
+Category Item JSON: /api/cataegories/<int:category_id>/item/<int:item_id>/json Displays a specific category item.
+
+

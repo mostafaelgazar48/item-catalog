@@ -1,0 +1,50 @@
+{% extends "main.html"%}
+{% block content%}
+<div class="login">
+    <div class="row">
+        <div class="col-md-12">
+            <h2> New Item</h2>
+            <hr>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12"> 
+            <form method="post">
+                <div class="form-group">
+                    <label for="name">Name::</label>
+                    <input type="text" placeholder="Enter the name of item" class="form-control" name="name">
+                    <label for="desc"> Description</label>
+                    <input type="text" placeholder="Description of item" class="form-control" maxlength="200" row="2" name="desc">
+                    <label for="price"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" name="price" placeholder="Add Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="Category">Category::</label>
+                        <select class="form-control" name="category">
+                            {% for c in categories %}
+                                {% if item and item.category_id == c.id %} 
+                                <option id="{{c.id}}" value="{{c.id}}" selected>{{c.name}}</option>
+                                {% else %}
+                                <option id="{{c.id}}" value="{{c.id}}">{{c.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn-success" type="submit">
+                        <span class="glyphicon glyphicon-glass"> </span>Create
+                    </button>
+                    <button class="btn btn-default delete">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <a href="{{url_for('show_Catalog')}}"> Cancel</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}
